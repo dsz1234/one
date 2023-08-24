@@ -5,6 +5,7 @@
     </div>
     <button @click="handleLogin">登录</button>
     <van-button type="danger">hello</van-button>
+    <div class="box"></div>
   </div>
 </template>
 
@@ -27,4 +28,10 @@ const handleLogin = () => {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.box {
+  width: 200px;
+  height: 200px;
+  background-color: yellow;
+}
+</style>
