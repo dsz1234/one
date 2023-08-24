@@ -8,6 +8,7 @@ import pinia from '@/stores/index'
 
 import App from './App.vue'
 import router from './router'
+// console.log(router.currentRoute.value)  里面有fullPath和path 了解它俩的区别
 
 const app = createApp(App)
 
