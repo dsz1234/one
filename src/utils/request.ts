@@ -3,14 +3,14 @@ import axios, { type Method } from 'axios'
 import { useUserStore } from '@/stores'
 import { showToast } from 'vant'
 import router from '@/router'
-const _axios = axios.create({
+const instance = axios.create({
   baseURL: '/dev-api',
   timeout: 10000
 })
 
 // console.log(axios)
 
-_axios.interceptors.request.use(
+instance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const store = useUserStore()
     // 通过token设置请求头
@@ -25,7 +25,7 @@ _axios.interceptors.request.use(
 )
 // console.log(_axios)
 
-_axios.interceptors.response.use(
+instance.interceptors.response.use(
   (res: AxiosResponse) => {
     if (res.data.code !== 10000) {
       // 成功提示
@@ -56,11 +56,17 @@ _axios.interceptors.response.use(
 //   [test]:'jeck'
 // }
 
-const request = (url: string, method: Method, submitData?: object) => {
-  return _axios({
+type Data<T> = {
+  code: number
+  message: string
+  data: T
+}
+
+const request = <T>(url: string, method: Method = 'get', submitData?: object) => {
+  return instance.request<T, Data<T>>({
     url,
     method,
-    [method.toLowerCase() === 'get' ? 'params' : 'data  ']: submitData
+    [method.toLowerCase() === 'get' ? 'params' : 'data']: submitData
   })
 }
 
@@ -73,4 +79,4 @@ const request = (url: string, method: Method, submitData?: object) => {
 //   data: {}
 // })
 
-export default _axios
+export default request

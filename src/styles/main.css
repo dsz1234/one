@@ -1,5 +1,4 @@
 :root {
-  // 问诊患者：⾊板
   --cp-primary: #16C2A3;
   --cp-plain: #EAF8F6;
   --cp-orange: #FCA21C;
@@ -12,12 +11,8 @@
   --cp-disable: #D9DBDE;
   --cp-line: #EDEDED;
   --cp-bg: #F6F7F9;
-  // 覆盖vant主体⾊
   --van-primary-color: var(--cp-primary);
- // 单元格上下间距
- --van-cell-vertical-padding: 14px;
- // 复选框⼤⼩
- --van-checkbox-size: 14px;
- // 默认按钮⽂字⼤⼩
- --van-button-normal-font-size: 16px;
-  }
+  --van-cell-vertical-padding: 14px;
+  --van-checkbox-size: 14px;
+  --van-button-normal-font-size: 16px;
+}

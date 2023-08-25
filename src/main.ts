@@ -18,3 +18,4 @@ app.use(pinia)
 app.mount('#app')
 
 // console.log(import.meta.env)
+// console.log(history.state.back)
