@@ -29,7 +29,6 @@ const onClickRight = () => {
 }
 const onClickleft = () => {
   if (history.state?.back) {
-    console.log(111)
     router.back()
   } else {
     router.push('/')
