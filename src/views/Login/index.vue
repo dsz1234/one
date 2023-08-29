@@ -95,7 +95,7 @@ const onSubmit = async () => {
     : await loginByMobile(loginForm.value.mobile, loginForm.value.code)
   // console.log(res)
   store.setUser(res.data)
-  router.push((route.query.returnUrl as string) || '/layout')
+  router.push((route.query.returnUrl as string) || '/home')
   showSuccessToast('登录成功')
 }
 

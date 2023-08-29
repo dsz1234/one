@@ -60,6 +60,7 @@
         :key="index"
         is-link
         :border="false"
+        :to="item.path"
       >
         <template #icon><cpIcons :name="`user-tool-0${index + 1}`" /></template>
       </van-cell>
@@ -209,9 +210,6 @@ const logOut = async () => {
       font-size: 18px;
     }
     .van-cell {
-      align-items: center;
-      padding: 5px 10px;
-      margin-bottom: 5px;
       .cp-icon {
         font-size: 20px;
       }

@@ -5,7 +5,7 @@
       :right-text="rightText"
       left-arrow
       @click-right="onClickRight"
-      @clcik-left="onClickleft"
+      @click-left="onClickleft"
       fixed
     />
   </div>
