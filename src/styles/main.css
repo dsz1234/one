@@ -11,12 +11,9 @@
   --cp-disable: #D9DBDE;
   --cp-line: #EDEDED;
   --cp-bg: #F6F7F9;
+  --cp-price: red;
   --van-primary-color: var(--cp-primary);
   --van-cell-vertical-padding: 14px;
   --van-checkbox-size: 14px;
   --van-button-normal-font-size: 16px;
-}
-
-#nprogress .bar {
-  background-color: var(--cp-primary) !important;
 }
