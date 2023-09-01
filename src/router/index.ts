@@ -28,6 +28,12 @@ const router = createRouter({
       meta: { title: '家庭档案' }
     },
     {
+      path: '/consult/fast',
+      name: 'fast',
+      component: () => import('../views/Home/ConsultFast.vue'),
+      meta: { title: '极速问诊' }
+    },
+    {
       path: '/layout',
       name: 'layout',
       component: () => import('../views/Layout/index.vue'),
@@ -67,7 +73,7 @@ router.beforeEach((to, from, next) => {
   const store = useUserStore()
   if (store.user?.token) {
     if (to.path == '/') {
-      next('/layout')
+      next('/home')
     } else {
       next()
     }

@@ -33,7 +33,8 @@ module.exports = {
         ignores: ['index']
       }
     ],
-    'vue/no-setup-props-destructure': ['off']
+    'vue/no-setup-props-destructure': ['off'],
+    '@typescript-eslint/no-unused-vars': 'off'
   },
   parserOptions: {
     ecmaVersion: 'latest'

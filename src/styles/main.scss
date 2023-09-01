@@ -21,4 +21,21 @@
  --van-checkbox-size: 14px;
  // 默认按钮⽂字⼤⼩
  --van-button-normal-font-size: 16px;
+
+ .van-tabs {
+  .van-tabs__nav {
+    padding: 0 0 15px 0;
+  }
+  .van-tabs__line {
+    width: 20px;
+    background-color: var(--cp-primary);
+  }
+  .van-tab {
+    padding: 0 15px;
+  }
+}
+  }
+
+  #nprogress .bar{
+    background-color: var(--cp-primary) !important;
   }

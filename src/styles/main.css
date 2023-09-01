@@ -17,3 +17,20 @@
   --van-checkbox-size: 14px;
   --van-button-normal-font-size: 16px;
 }
+
+:root .van-tabs .van-tabs__nav {
+  padding: 0 0 15px 0;
+}
+
+:root .van-tabs .van-tabs__line {
+  width: 20px;
+  background-color: var(--cp-primary);
+}
+
+:root .van-tabs .van-tab {
+  padding: 0 15px;
+}
+
+#nprogress .bar {
+  background-color: var(--cp-primary) !important;
+}
