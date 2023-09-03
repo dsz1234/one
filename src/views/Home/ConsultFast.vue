@@ -6,7 +6,7 @@
       <p class="text"><span>20s</span> 快速匹配专业医生</p>
     </div>
     <div class="fast-type">
-      <router-link to="/consult/dep" class="item">
+      <router-link to="/consult/dep" class="item" @click="store.setIllnessType(1)">
         <cpIcons class="pic" name="consult-doctor"></cpIcons>
         <div class="info">
           <p>三甲图文问诊</p>
@@ -14,7 +14,7 @@
         </div>
         <van-icon name="arrow"></van-icon>
       </router-link>
-      <router-link to="/consult/dep" class="item">
+      <router-link to="/consult/dep" class="item" @click="store.setIllnessType(0)">
         <cpIcons class="pic" name="consult-message"></cpIcons>
         <div class="info">
           <p>普通图文问诊</p>
@@ -29,6 +29,8 @@
 <script lang="ts" setup>
 import lgNavBar from '@/components/lg-nav-bar.vue'
 import cpIcons from '@/components/cp-icons.vue'
+import { useConsultStore } from '@/stores'
+const store = useConsultStore()
 </script>
 
 <style lang="scss" scoped>

@@ -21,7 +21,7 @@
           </router-link>
         </van-col>
         <van-col span="8">
-          <router-link to="/consult/fast" class="nav">
+          <router-link to="/consult/fast" class="nav" @click="setType">
             <cpIcons name="home-graphic"></cpIcons>
             <p class="title">极速问诊</p>
             <p class="desc">20s医生极速回复</p>
@@ -102,7 +102,14 @@ import { ref } from 'vue'
 import cpIcons from '@/components/cp-icons.vue'
 import KnowledgeBar from './components/KnowledgeBar.vue'
 import FollowDoctor from './components/FollowDoctor.vue'
+import { useConsultStore } from '@/stores/'
+import { ConsultType } from '@/enums'
 const active = ref(0)
+
+const setType = () => {
+  const store = useConsultStore()
+  store.setType(ConsultType.Fast)
+}
 </script>
 
 <style lang="scss">

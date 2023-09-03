@@ -1,0 +1,52 @@
+import { ref } from 'vue'
+import type { IllnessFile, PartialConsult } from '@/types/consult'
+import { defineStore } from 'pinia'
+import type { ConsultType } from '@/enums'
+export const useConsultStore = defineStore(
+  'cp-consult',
+  () => {
+    const consult = ref<PartialConsult>({})
+
+    // 设置问诊类型
+    const setType = (type: ConsultType) => {
+      consult.value.type = type
+      console.log(consult.value)
+    }
+    // 设置极速问诊类型
+    const setIllnessType = (illnessType: 0 | 1) => {
+      consult.value.illnessType = illnessType
+    }
+    // 设置科室ID
+    const setDep = (depId: string) => {
+      consult.value.depId = depId
+    }
+    // 设置疾病描述
+    const setIllness = (illness: IllnessFile) => {
+      consult.value.illnessDesc = illness.illnessDesc
+      consult.value.illnessTime = illness.illnessTime
+      consult.value.consultFlag = illness.consultFlag
+      consult.value.pictures = illness.pictures
+    }
+    // 设置患者
+    const setPatient = (patientId: string) => {
+      consult.value.patientId = patientId
+    }
+    // 设置优惠券ID
+    const setCoupon = (couponId: string) => {
+      consult.value.couponId = couponId
+    }
+    // 清空
+    const clear = () => (consult.value = {})
+    return {
+      consult,
+      setType,
+      setIllnessType,
+      setDep,
+      setIllness,
+      setPatient,
+      setCoupon,
+      clear
+    }
+  },
+  { persist: true }
+)

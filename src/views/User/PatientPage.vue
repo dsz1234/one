@@ -1,9 +1,21 @@
 <template>
   <div class="patient-page">
-    <lgNavBar title="家庭档案"></lgNavBar>
+    <lgNavBar :title="isChange ? '选择患者' : '家庭档案'"></lgNavBar>
+
+    <!-- 头部提示选择患者信息 -->
+    <div class="head" v-if="isChange">
+      <p class="tit">请选择患者信息</p>
+      <p class="desc">以便医生给出更准确的治疗，信息仅医生可见</p>
+    </div>
 
     <div class="patient-page-nav">
-      <div class="list" v-for="(item, index) in patientList" :key="index">
+      <div
+        class="list"
+        v-for="(item, index) in patientList"
+        :key="index"
+        @click="selectedPatient(item)"
+        :class="{ selected: patientId === item.id }"
+      >
         <p>
           <span class="name">{{ item.name }}</span>
           <span class="pid">{{ item.idCard.replace(/^(.{6}).+(.{4})$/, '\$1********\$2') }}</span>
@@ -64,14 +76,19 @@
         <van-action-bar-button @click="remove">删除</van-action-bar-button>
       </van-action-bar>
     </van-popup>
+
+    <!-- 底部按钮 -->
+    <div class="patient-next" v-if="isChange">
+      <van-button type="primary" round block @click="next">下一步</van-button>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-// import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { ref, computed } from 'vue'
 // const router = useRouter()
-// const route = useRoute()
+
 import lgNavBar from '@/components/lg-nav-bar.vue'
 import cpIcons from '@/components/cp-icons.vue'
 import type { PatientList, Patient } from '@/types/user'
@@ -82,12 +99,19 @@ import { nameRules, idCardRules } from '@/utils/rules'
 import Validator from 'id-validator'
 import { showConfirmDialog, showSuccessToast, showToast } from 'vant'
 import { addPatient, editPatient, delPatient } from '@/services/user'
-
+import { useConsultStore } from '@/stores'
+import router from '@/router'
+const store = useConsultStore()
 const patientList = ref<PatientList>([])
 const initPatient = async () => {
   let res = await getPatientList()
-  console.log(res)
+  // console.log(res)
   patientList.value = res.data
+  if (isChange.value && patientList.value.length) {
+    const delPatient = patientList.value.find((item) => item.defaultFlag === 1)
+    if (delPatient) patientId.value = delPatient.id
+    else patientId.value = patientList.value[0].id
+  }
 }
 initPatient()
 const options = [
@@ -152,11 +176,31 @@ const remove = async () => {
     showSuccessToast('删除成功')
   }
 }
+
+// 是否是选择患者页面
+const route = useRoute()
+const isChange = computed(() => route.query.isChange === '1')
+
+// 选中患者,并记录患者id
+const patientId = ref<string>()
+const selectedPatient = (item: Patient) => {
+  console.log(item)
+  if (isChange.value) {
+    patientId.value = item.id
+  }
+}
+
+// 下一步
+const next = () => {
+  if (!patientId.value) return showToast('请选择就诊患者')
+  store.setPatient(patientId.value)
+  router.push('/consult/pay')
+}
 </script>
 
 <style lang="scss">
 .patient-page {
-  padding: 50px 15px 0;
+  padding: 46px 15px 0;
   margin-top: 15px;
   &-nav {
     .list {
@@ -166,6 +210,7 @@ const remove = async () => {
       box-sizing: border-box;
       position: relative;
       margin-bottom: 15px;
+      border: 1px solid #f6f7f8;
       p {
         margin: 0;
         .name {
@@ -232,6 +277,18 @@ const remove = async () => {
   .van-popup {
     padding-top: 46px;
   }
+  .head {
+    margin-bottom: 20px;
+    .tit {
+      font-weight: 550;
+      font-size: 17px;
+    }
+    .desc {
+      font-size: 14px;
+      color: var(--cp-text2);
+      margin-top: 10px;
+    }
+  }
 }
 .van-action-bar {
   padding: 0 10px;
@@ -240,5 +297,12 @@ const remove = async () => {
     color: var(--cp-price);
     background-color: var(--cp-bg);
   }
+}
+.patient-next {
+  margin-top: 30px;
+}
+.selected {
+  border: 1px solid var(--cp-primary) !important;
+  background-color: #eaf8f6 !important;
 }
 </style>

@@ -27,3 +27,6 @@ export const editPatient = (data: Patient) => request('/patient/update', 'PUT', 
 
 // 删除患者信息
 export const delPatient = (id: string) => request(`/patient/del/${id}`, 'DELETE')
+
+// 查询患者详情
+export const getPatientDetail = (id: string) => request<Patient>(`/patient/info/${id}`)

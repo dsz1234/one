@@ -48,9 +48,10 @@ const toggleItem = (value: string | number) => {
     margin-right: 10px;
     box-sizing: border-box;
     color: var(--cp-text2);
-    margin-bottom: 10px;
+    margin-top: 10px;
     border-radius: 4px;
     transition: all 0.3s;
+    font-size: 14px;
     &.active {
       border-color: var(--cp-primary);
       background-color: var(--cp-plain);
