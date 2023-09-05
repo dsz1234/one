@@ -34,16 +34,16 @@ const getIllnessList = async () => {
   let res = await getAllDep()
   initGetIllness.value = res.data
   chirdList.value = initGetIllness.value[0].child
-  console.log(initGetIllness.value)
+  // console.log(initGetIllness.value)
 }
 getIllnessList()
 
 const chirdList = ref()
 // 左侧标签栏切换时触发
 const submitChange = (index: number) => {
-  console.log(index)
+  // console.log(index)
   chirdList.value = initGetIllness.value[index].child
-  console.log(chirdList.value)
+  // console.log(chirdList.value)
 }
 </script>
 

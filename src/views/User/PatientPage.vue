@@ -184,7 +184,7 @@ const isChange = computed(() => route.query.isChange === '1')
 // 选中患者,并记录患者id
 const patientId = ref<string>()
 const selectedPatient = (item: Patient) => {
-  console.log(item)
+  // console.log(item)
   if (isChange.value) {
     patientId.value = item.id
   }

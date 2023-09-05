@@ -110,7 +110,7 @@ const send = async () => {
   // 验证不通过报错，阻止程序继续执行
   await form.value?.validate('mobile')
   let res = await sendMobileCode(loginForm.value.mobile, 'login')
-  console.log(res)
+  // console.log(res)
   loginForm.value.code = res.data.code
   showSuccessToast('发送成功')
   time.value = 60

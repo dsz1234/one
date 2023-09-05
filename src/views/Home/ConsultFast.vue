@@ -1,6 +1,10 @@
 <template>
   <div class="consultFast-page">
-    <lgNavBar title="极速问诊" right-text="问诊记录"></lgNavBar>
+    <lgNavBar
+      title="极速问诊"
+      right-text="问诊记录"
+      @click-right="$router.push('/user/consult')"
+    ></lgNavBar>
     <div class="consultFast-page-logo">
       <img class="img" src="@/assets/bg.png" alt="" />
       <p class="text"><span>20s</span> 快速匹配专业医生</p>

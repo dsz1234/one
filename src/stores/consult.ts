@@ -10,7 +10,7 @@ export const useConsultStore = defineStore(
     // 设置问诊类型
     const setType = (type: ConsultType) => {
       consult.value.type = type
-      console.log(consult.value)
+      // console.log(consult.value)
     }
     // 设置极速问诊类型
     const setIllnessType = (illnessType: 0 | 1) => {
