@@ -36,7 +36,7 @@
       :loading="loading"
     />
     <!-- 选择付款方式抽屉 -->
-    <van-action-sheet
+    <!-- <van-action-sheet
       v-model:show="show"
       title="选择支付方式"
       :closeable="false"
@@ -65,7 +65,8 @@
         </van-cell-group>
         <van-button round block class="btnPay" @click="pay">立即支付</van-button>
       </div>
-    </van-action-sheet>
+    </van-action-sheet> -->
+    <cp-pay-sheet v-model:show="show" :order-id="orderId" :actualPayment="payInfo.actualPayment" />
   </div>
 </template>
 
@@ -84,6 +85,7 @@ import { showConfirmDialog, showDialog, showLoadingToast, showToast } from 'vant
 import cpIcons from '@/components/cp-icons.vue'
 import { getConsultOrderPayUrl } from '@/services/consult'
 const store = useConsultStore()
+import CpPaySheet from '@/components/CpPaySheet.vue'
 
 const payInfo = ref<ConsultOrderPreData>()
 const loadData = async () => {
@@ -151,7 +153,7 @@ onBeforeRouteLeave(() => {
 })
 
 // 关闭抽屉式触发
-const onclose = () => {
+const onClose = () => {
   // console.log(111)
   return showConfirmDialog({
     title: '关闭支付',
@@ -171,17 +173,17 @@ const onclose = () => {
     })
 }
 
-// 点击支付
-const pay = async () => {
-  if (paymentMethod.value === undefined) return showToast('请选择支付方式')
-  showLoadingToast({ message: '跳转支付', duration: 0 })
-  const res = await getConsultOrderPayUrl({
-    orderId: orderId.value,
-    paymentMethod: paymentMethod.value,
-    payCallback: 'http://localhost:5173/#/room'
-  })
-  window.location.href = res.data.payUrl
-}
+// // 点击支付
+// const pay = async () => {
+//   if (paymentMethod.value === undefined) return showToast('请选择支付方式')
+//   showLoadingToast({ message: '跳转支付', duration: 0 })
+//   const res = await getConsultOrderPayUrl({
+//     orderId: orderId.value,
+//     paymentMethod: paymentMethod.value,
+//     payCallback: 'http://localhost:5173/#/room'
+//   })
+//   window.location.href = res.data.payUrl
+// }
 </script>
 
 <style lang="scss">

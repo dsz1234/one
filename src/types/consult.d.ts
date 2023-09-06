@@ -272,6 +272,9 @@ export type ConsultOrderItem = {
    */
   type?: number
   evaluateId?: string
+  actualPayment: number
+  couponDeduction: number
+  pointDeduction: number
 }
 
 export type ConsultOrderPage = {
