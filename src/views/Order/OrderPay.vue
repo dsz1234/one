@@ -1,13 +1,15 @@
 <template>
-  <div class="order-pay-page">
+  <div class="order-pay-page" v-if="address && orderPre">
     <lgNavBar title="药品支付"></lgNavBar>
     <div class="head">
       <div class="tit">
         <van-icon name="location" />
-        <span>北京市昌平区</span>
+        <span>{{ address.province }}{{ address.city }}{{ address.county }}</span>
       </div>
-      <div class="count">建材城西路金燕龙办公楼999号</div>
-      <div class="file">李富贵 13211112222</div>
+      <div class="count">{{ address.addressDetail }}</div>
+      <div class="file">
+        {{ address.receiver }} {{ address.mobile.replace(/^(\d{3})\d+(\d{4})$/, '\$1****\$2') }}
+      </div>
     </div>
     <div class="fg"></div>
     <div class="nav">
@@ -15,36 +17,42 @@
         <h3>优医药房</h3>
         <small>优医质保 假一赔十</small>
       </div>
-      <div class="item" v-for="i in 2" :key="i">
-        <img class="img" src="@/assets/ad.png" alt="" />
+      <div class="item" v-for="med in orderPre.medicines" :key="med.id">
+        <img class="img" :src="med.avatar" alt="" />
         <div class="info">
           <p class="name">
-            <span>优赛明 维生素E乳</span>
-            <span>x1</span>
+            <span>{{ med.name }}</span>
+            <span>x{{ med.quantity }}</span>
           </p>
           <p class="size">
-            <van-tag>处方药</van-tag>
-            <span>80ml</span>
+            <van-tag v-if="med.prescriptionFlag === 1">处方药</van-tag>
+            <span>{{ med.specs }}</span>
           </p>
-          <p class="price">￥25.00</p>
+          <p class="price">￥{{ med.amount }}</p>
         </div>
-        <div class="desc">用法用量：口服，每次1袋，每天3次，用药3天</div>
+        <div class="desc">{{ med.usageDosag }}</div>
       </div>
     </div>
     <div class="order-detail">
       <van-cell-group>
-        <van-cell title="药品金额" value="￥50" />
-        <van-cell title="运费" value="￥4" />
-        <van-cell title="优惠券" value="-￥0" />
-        <van-cell title="实付款" value="￥54" class="price" />
+        <van-cell title="药品金额" :value="`￥${orderPre.payment}`" />
+        <van-cell title="运费" :value="`￥${orderPre.expressFee}`" />
+        <van-cell title="优惠券" :value="`-￥${orderPre.couponDeduction}`" />
+        <van-cell title="实付款" :value="`￥${orderPre.actualPayment}`" class="price" />
       </van-cell-group>
     </div>
     <van-submit-bar
-      :price="50 * 100"
+      :price="orderPre.actualPayment * 100"
       button-text="立即支付"
       button-type="primary"
       text-align="left"
     ></van-submit-bar>
+  </div>
+  <div class="order-pay-page" v-else>
+    <lgNavBar title="药品支付" />
+    <van-skeleton title avatar row="2" style="margin-top: 15px" />
+    <van-skeleton title row="4" style="margin-top: 50px" />
+    <van-skeleton title row="4" style="margin-top: 50px" />
   </div>
 </template>
 
@@ -54,6 +62,29 @@ import { ref, reactive } from 'vue'
 const router = useRouter()
 const route = useRoute()
 import lgNavBar from '@/components/lg-nav-bar.vue'
+import { getAddressList, getMedicalOrderPre } from '@/services/order'
+import type { AddressItem, OrderPre } from '@/types/order'
+// console.log(route.query.id)
+
+// 预支付信息
+const orderPre = ref<OrderPre>()
+const loadOrderPre = async () => {
+  const res = await getMedicalOrderPre({ prescriptionId: route.query.id as string })
+  console.log(res)
+  orderPre.value = res.data
+}
+loadOrderPre()
+
+// 获取收货地址
+const address = ref<AddressItem>()
+const loadAddress = async () => {
+  const addRes = await getAddressList()
+  if (addRes.data.length) {
+    address.value = addRes.data[0]
+  }
+  // console.log('11', address.value)
+}
+loadAddress()
 </script>
 
 <style lang="scss">

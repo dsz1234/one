@@ -52,7 +52,7 @@
         继续沟通
       </van-button>
     </div>
-    <div class="foot" v-if="item.status === Status.ConsultPay">
+    <div class="foot" v-if="item.status === OrderType.ConsultPay">
       <van-button
         v-if="item.prescriptionId"
         class="gray"
@@ -112,7 +112,7 @@ import { ref, computed } from 'vue'
 const router = useRouter()
 const route = useRoute()
 import type { ConsultOrderItem } from '@/types/consult'
-import { Status } from '@/enums'
+import { Status, OrderType } from '@/enums'
 import { cancelOrder, deleteOrder } from '@/services/consult'
 import { showSuccessToast, showFailToast } from 'vant'
 import ConsultItem from '@/views/User/components/ConsultMore.vue'

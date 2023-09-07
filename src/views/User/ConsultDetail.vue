@@ -84,7 +84,7 @@
     </div>
     <!-- 取消问诊 -->
     <div class="foot" v-if="detailList.status === OrderType.ConsultCancel">
-      <van-button type="default" round>删除订单</van-button>
+      <van-button type="default" round @click="deleteConsultOrder(detailList)">删除订单</van-button>
       <van-button type="primary" round to="/">咨询其他医生</van-button>
     </div>
     <cp-pay-sheet
@@ -117,7 +117,7 @@ const getXqList = async () => {
   let res = await getConsultDetail(route.params.id as string)
   // console.log(res)
   detailList.value = res.data
-  console.log(detailList.value)
+  // console.log(detailList.value)
 }
 getXqList()
 

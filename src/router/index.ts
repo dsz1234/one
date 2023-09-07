@@ -17,11 +17,6 @@ const router = createRouter({
       component: () => import('../views/Zhuce/index.vue')
     },
     {
-      path: '/order',
-      name: 'order',
-      component: () => import('../views/Order/index.vue')
-    },
-    {
       path: '/user/patient',
       name: 'patient',
       component: () => import('../views/User/PatientPage.vue'),
