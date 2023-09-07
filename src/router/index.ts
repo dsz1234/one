@@ -24,9 +24,15 @@ const router = createRouter({
     },
     {
       path: '/consult/pay',
-      name: 'pay',
+      name: 'consultpay',
       component: () => import('../views/Home/ConsultPay.vue'),
       meta: { title: '问诊支付' }
+    },
+    {
+      path: '/order/pay/result',
+      name: 'pay',
+      component: () => import('../views/Order/OrderPayResult.vue'),
+      meta: { title: '药品支付结果' }
     },
     {
       path: '/consult/fast',
@@ -56,6 +62,11 @@ const router = createRouter({
       path: '/order/pay',
       component: () => import('../views/Order/OrderPay.vue'),
       meta: { title: '药品支付' }
+    },
+    {
+      path: '/order/:id',
+      component: () => import('../views/Order/OrderDetail.vue'),
+      meta: { title: '药品订单详情' }
     },
     {
       path: '/user/consult',

@@ -66,7 +66,12 @@
         <van-button round block class="btnPay" @click="pay">立即支付</van-button>
       </div>
     </van-action-sheet> -->
-    <cp-pay-sheet v-model:show="show" :order-id="orderId" :actualPayment="payInfo.actualPayment" />
+    <cp-pay-sheet
+      payCallback="http://localhost:5175/#/room"
+      v-model:show="show"
+      :order-id="orderId"
+      :actualPayment="payInfo.actualPayment"
+    />
   </div>
 </template>
 
@@ -139,7 +144,7 @@ const submit = async () => {
   if (!agree.value) return showToast('请勾选我已同意支付协议')
   loading.value = true
   const res = await createConsultOrder(store.consult)
-  // console.log(res)
+  console.log(res)
   orderId.value = res.data.id
   loading.value = false
   //TODO 清空病情信息

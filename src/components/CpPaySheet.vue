@@ -44,22 +44,23 @@ const props = defineProps<{
   show: boolean
   actualPayment: number
   onClose?: () => void
+  payCallback: string
 }>()
 const emit = defineEmits<{
   (e: 'update:show', val: boolean): void
 }>()
 const paymentMethod = ref<0 | 1>()
-// 点击支付
+// 跳转支付
 const pay = async () => {
   if (paymentMethod.value === undefined) return showToast('请选择支付方式')
   showLoadingToast({ message: '跳转支付', duration: 0 })
   const res = await getConsultOrderPayUrl({
     orderId: props.orderId,
     paymentMethod: paymentMethod.value,
-    payCallback: 'http://localhost:5173/#/room'
+    payCallback: props.payCallback
   })
   window.location.href = res.data.payUrl
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss"></style>

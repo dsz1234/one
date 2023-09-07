@@ -85,9 +85,9 @@
 </template>
 
 <script lang="ts" setup>
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { ref, computed } from 'vue'
-// const router = useRouter()
+const router = useRouter()
 
 import lgNavBar from '@/components/lg-nav-bar.vue'
 import cpIcons from '@/components/cp-icons.vue'
@@ -100,7 +100,6 @@ import Validator from 'id-validator'
 import { showConfirmDialog, showSuccessToast, showToast } from 'vant'
 import { addPatient, editPatient, delPatient } from '@/services/user'
 import { useConsultStore } from '@/stores'
-import router from '@/router'
 const store = useConsultStore()
 const patientList = ref<PatientList>([])
 const initPatient = async () => {

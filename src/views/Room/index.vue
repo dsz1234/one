@@ -1,7 +1,7 @@
 <template>
   <div class="room">
     <lgNavBar title="医生问诊室"></lgNavBar>
-    <van-button @click="$router.push('/order/pay?id=6938549059629056')">购买药品</van-button>
+    <van-button @click="$router.push('/order/pay?id=6938994767122432')">购买药品</van-button>
   </div>
 </template>
 

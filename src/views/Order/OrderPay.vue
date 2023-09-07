@@ -46,7 +46,15 @@
       button-text="立即支付"
       button-type="primary"
       text-align="left"
+      @click="submit"
     ></van-submit-bar>
+
+    <cp-pay-sheet
+      v-model:show="show"
+      :order-id="orderId"
+      :actualPayment="orderPre.actualPayment"
+      payCallback="http://localhost:5175/#/order/pay/result"
+    />
   </div>
   <div class="order-pay-page" v-else>
     <lgNavBar title="药品支付" />
@@ -64,13 +72,15 @@ const route = useRoute()
 import lgNavBar from '@/components/lg-nav-bar.vue'
 import { getAddressList, getMedicalOrderPre } from '@/services/order'
 import type { AddressItem, OrderPre } from '@/types/order'
+import { showToast } from 'vant'
+import { createMedicalOrder } from '@/services/order'
 // console.log(route.query.id)
 
 // 预支付信息
 const orderPre = ref<OrderPre>()
 const loadOrderPre = async () => {
   const res = await getMedicalOrderPre({ prescriptionId: route.query.id as string })
-  console.log(res)
+  // console.log(res)
   orderPre.value = res.data
 }
 loadOrderPre()
@@ -85,6 +95,36 @@ const loadAddress = async () => {
   // console.log('11', address.value)
 }
 loadAddress()
+
+const show = ref(false)
+const loading = ref(false)
+const orderId = ref('')
+import { useConsultStore } from '@/stores'
+const store = useConsultStore()
+// 点击立即支付
+const submit = async () => {
+  if (!address.value?.id) return showToast('请选择收货地址')
+  if (!orderPre.value?.id) return showToast('未找到处方')
+  if (!orderId.value) {
+    try {
+      loading.value = true
+      const res = await createMedicalOrder({
+        id: orderPre.value?.id as string,
+        addressId: address.value?.id as string,
+        couponId: orderPre.value?.couponId
+      })
+      // console.log(res)
+      orderId.value = res.data.id
+      loading.value = false
+      //TODO 清空病情信息
+      // store.clear()
+      // 打开抽屉
+      show.value = true
+    } catch (e) {
+      loading.value = false
+    }
+  }
+}
 </script>
 
 <style lang="scss">
@@ -187,6 +227,28 @@ loadAddress()
         color: var(--cp-tip);
       }
     }
+  }
+}
+.content {
+  padding-bottom: 10px;
+  .tit {
+    font-weight: 600;
+    font-size: 17px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .van-cell__title {
+    margin-left: 10px;
+  }
+  .cp-icon {
+    font-size: 20px;
+  }
+}
+.btnPay {
+  background-color: var(--cp-primary);
+  margin-top: 15px;
+  .van-button__text {
+    color: #fff;
   }
 }
 </style>
