@@ -1,7 +1,7 @@
 <template>
   <div class="order-detail">
     <lgNavBar title="药品订单详情"></lgNavBar>
-    <div class="top">
+    <div class="top" @click="$router.push(`/order/logistics/${order?.id}`)">
       <div class="file">
         <div class="file-one">
           <p>【东莞市】您的包裹已由物流公司揽收</p>

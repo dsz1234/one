@@ -53,7 +53,7 @@
       v-model:show="show"
       :order-id="orderId"
       :actualPayment="orderPre.actualPayment"
-      payCallback="http://localhost:5175/#/order/pay/result"
+      payCallback="http://localhost:5173/#/order/pay/result"
     />
   </div>
   <div class="order-pay-page" v-else>
@@ -66,7 +66,7 @@
 
 <script lang="ts" setup>
 import { useRouter, useRoute } from 'vue-router'
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
 const router = useRouter()
 const route = useRoute()
 import lgNavBar from '@/components/lg-nav-bar.vue'
@@ -74,6 +74,7 @@ import { getAddressList, getMedicalOrderPre } from '@/services/order'
 import type { AddressItem, OrderPre } from '@/types/order'
 import { showToast } from 'vant'
 import { createMedicalOrder } from '@/services/order'
+
 // console.log(route.query.id)
 
 // 预支付信息

@@ -67,7 +67,7 @@
       </div>
     </van-action-sheet> -->
     <cp-pay-sheet
-      payCallback="http://localhost:5175/#/room"
+      payCallback="http://localhost:5173/#/room"
       v-model:show="show"
       :order-id="orderId"
       :actualPayment="payInfo.actualPayment"
