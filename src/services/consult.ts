@@ -6,7 +6,8 @@ import type {
   DoctorPage,
   FollowType,
   TopDep,
-  PartialConsult
+  PartialConsult,
+  ConsultOrderItem
 } from '@/types/consult'
 import request from '@/utils/request'
 
@@ -63,5 +64,5 @@ export const getPrescriptionPic = (id: string) =>
   request<{ id: string; url: string }>(`/patient/consult/prescription/${id}`, 'GET')
 
 // 订单详情信息
-export const getConsultDetail = (orderId: number | string) =>
-  request('/patient/consult/order/detail', 'GET', { orderId })
+export const getConsultOrderDetail = (orderId: number | string) =>
+  request<ConsultOrderItem>('/patient/consult/order/detail', 'GET', { orderId })

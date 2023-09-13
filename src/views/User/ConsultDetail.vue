@@ -108,13 +108,13 @@ const route = useRoute()
 import lgNavBar from '@/components/lg-nav-bar.vue'
 
 import { OrderType } from '@/enums'
-import { deleteOrder, getConsultDetail } from '@/services/consult'
+import { deleteOrder, getConsultOrderDetail } from '@/services/consult'
 import type { ConsultOrderItem } from '@/types/consult'
 import { getIllnessTimeText, getConsultFlagText } from '@/utils/filter'
 const detailList = ref<ConsultOrderItem>()
 import ConsultMore from './components/ConsultMore.vue'
 const getXqList = async () => {
-  let res = await getConsultDetail(route.params.id as string)
+  let res = await getConsultOrderDetail(route.params.id as string)
   // console.log(res)
   detailList.value = res.data
   // console.log(detailList.value)

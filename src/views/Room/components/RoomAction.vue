@@ -6,9 +6,11 @@
       :border="false"
       placeholder="问医生"
       autocomplete="off"
-      :disabled="true"
+      v-model="text"
+      :disabled="disabled"
+      @keyup.enter="sendText"
     ></van-field>
-    <van-uploader :preview-image="false" :disabled="true">
+    <van-uploader :preview-image="false" :disabled="disabled" :after-read="sendImage">
       <cpIcons name="consult-img" />
     </van-uploader>
   </div>
@@ -20,6 +22,42 @@ import { ref, reactive } from 'vue'
 const router = useRouter()
 const route = useRoute()
 import cpIcons from '@/components/cp-icons.vue'
+import { closeToast, showLoadingToast, showToast } from 'vant'
+import { uploadImage } from '@/services/consult'
+import type { Image } from '@/types/consult'
+import type { UploaderAfterRead } from 'vant/lib/uploader/types'
+
+defineProps<{
+  disabled: boolean
+}>()
+
+const emit = defineEmits<{
+  (e: 'send-text', text: string): void
+  (e: 'send-image', img: Image): void
+}>()
+
+const text = ref<string>('')
+
+// 敲回车发送消息
+const sendText = () => {
+  if (text.value.trim() === '') {
+    return showToast('请输入内容')
+  }
+  emit('send-text', text.value)
+  text.value = ''
+}
+
+// 点击图片发送
+const sendImage: UploaderAfterRead = async (data) => {
+  if (Array.isArray(data)) return
+  if (!data.file) return
+
+  showLoadingToast('正在上传')
+
+  const res = await uploadImage(data.file)
+  closeToast()
+  emit('send-image', res.data)
+}
 </script>
 
 <style lang="scss" scoped>

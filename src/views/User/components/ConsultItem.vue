@@ -34,7 +34,7 @@
         @click="onShowPrescription(item.prescriptionId as string)"
         >查看处方</van-button
       >
-      <van-button type="primary" plain size="small" round :to="`/user/consult/${item.id}`">
+      <van-button type="primary" plain size="small" round :to="`/room?orderId=${item.id}`">
         继续沟通
       </van-button>
     </div>
@@ -64,7 +64,7 @@
       >
         取消问诊
       </van-button>
-      <van-button type="primary" plain size="small" round :to="`/room?orderId=${item.id}`">
+      <van-button type="primary" plain size="small" round :to="`/user/consult/${item.id}`">
         继续支付
       </van-button>
     </div>
